@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+    
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-group mt-4">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                
+                <div class="form-group mt-4">
+                    <label for="pub_date">Publication Date:</label>
+                    <input type="datetime-local" id="pub_date" name="pub_date" class="form-control" required>
+                </div>
+                
+                <div class="form-group mt-4">
+                    <label for="image">Image:</label>
+                    <input type="file" id="image" name="image" class="form-control-file" accept="image/*" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary mt-5">Ekle</button>
+            </form>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center">
+            <div class="mt-5">
+                <h3>Makele Listesi</h3>
+                <ul>
+                    {% for article in articles %}
+                    <li>
+                        <h4 class="mt-2">{{ article.name }}</h4>
+                        <p class="mt-2">Yayınlanma Tarihi: {{ article.pub_date }}</p>
+                        <img src="{{ article.image.url }}" alt="{{ article.name }}" width="50">
+                    </li>
+                    {% empty %}
+                    <li>No articles available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+  
+  
+    
+
+{% endblock content %}
+
